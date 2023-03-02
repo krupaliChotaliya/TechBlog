@@ -16,7 +16,9 @@ public class User {
     private String password;
     private String gender;
     private String about;
+    private String loginStatus;
 
+    
     public User(String username, String email, String password, String gender, String about) {
         this.username = username;
         this.email = email;
@@ -68,6 +70,13 @@ public class User {
         this.about = about;
     }
     
-    
+    public String getLoginStatus() {
+        return loginStatus;
+    }
+
+    public void setLoginStatus(String loginStatus) {
+        this.loginStatus = loginStatus;
+    }
+
     
 }

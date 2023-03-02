@@ -100,19 +100,36 @@
 //                  send register servlet
                     $.ajax({
                         url: "registrationservlet",
-
                         type: "post",
                         data: formdata,
-
                         processData: false,
                         contentType: false,
                         success: function (data, textStatus, jqXHR) {
                             $("#btn-submit").show();
                             $("#loader").hide();
-                            swal("Registrated Successfull!! You are going to redirect Login page")
+                            console.log(data);
+                            
+                            if(data=="done")
+                            {
+                                  swal("Registrated Successfull!! You are going to redirect Login page")
                                     .then((value) => {
                                         window.location = "login.jsp";
                                     });
+                            }
+                            if(data=="error")
+                            {
+                                  swal("Something Went Wrong!!")
+                                    .then((value) => {
+
+                                    });
+                            }
+                            if(data=="please check teams and condition.")
+                            {
+                                  swal("please check teams and condition.")
+                                    .then((value) => {
+
+                                    });
+                            }
 
                         },
                         error: function (jqXHR, textStatus, errorThrown) {

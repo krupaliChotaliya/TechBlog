@@ -4,9 +4,17 @@
         <servlet-name>registrationservlet</servlet-name>
         <servlet-class>com.tech.blog.servlet.registrationservlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>loginservlet</servlet-name>
+        <servlet-class>com.tech.blog.servlet.loginservlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>registrationservlet</servlet-name>
         <url-pattern>/registrationservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loginservlet</servlet-name>
+        <url-pattern>/loginservlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
