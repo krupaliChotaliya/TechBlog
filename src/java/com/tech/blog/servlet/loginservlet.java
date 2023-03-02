@@ -11,17 +11,16 @@ import com.tech.blog.entities.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author admin
  */
-@MultipartConfig
-public class registrationservlet extends HttpServlet {
+public class loginservlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,33 +34,33 @@ public class registrationservlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        System.out.println("servelet found");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-          
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet loginservlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            String email=request.getParameter("email");
+            String password=request.getParameter("password");
             
-            String username = request.getParameter("username");
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            String gender = request.getParameter("gender");
-            String about = request.getParameter("about");
-            String check = request.getParameter("check");
+            userDao ud= new userDao(connectionProvider.getConnection());
+            User user=ud.getuserEmailandPassowd(email, password);
             
-            if (check == null) {
-                out.print("please check teams and condition.");
-            } else {
-                User user = new User(username, email, password, gender, about);
-                userDao userdao = new userDao(connectionProvider.getConnection());
-                if (userdao.saveUser(user)) {
-                    out.print("done");
-                } else {
-                    out.print("error");
-                }
+            if(user==null)
+            {
+                out.print("invalid username or password!!");
             }
-
+            else
+            {
+                HttpSession session=request.getSession();
+                session.setAttribute("currentUser", user);
+                response.sendRedirect("profile.jsp");
+            }
             
-        }catch(Exception ex){
-            ex.printStackTrace();
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
